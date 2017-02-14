@@ -14,16 +14,25 @@ namespace Lab1
 {
     public partial class Part1 : Form
     {
-        private double[] checkBoxItems = { 0.1, 0.2, 0.3 };
+        public static List<double> checkBoxItems = new List<double>();
         public Part1()
         {
             InitializeComponent();
             FillCheckedListBox();
         }
 
-        #region private methods
+        #region public methods
 
-        private double ConvertValueToDouble(string value)
+        public static double ExtractDoubleFromString(string str)
+        {
+
+            Regex digits = new Regex(@"^\D*?((-?(\d+(\.\d+)?))|(-?\.\d+)).*");
+            Match mx = digits.Match(str);
+
+            return mx.Success ? Convert.ToDouble(mx.Groups[1].Value) : 0;
+        }
+
+        public static double ConvertValueToDouble(string value)
         {
             double rezult = 0;
 
@@ -38,27 +47,25 @@ namespace Lab1
             return rezult;
         }
 
+        #endregion
+
+        #region private methods
+
+
+
         private void FillCheckedListBox()
         {
             checkedListBox1.CheckOnClick = true;
             var item = checkedListBox1.Items;
 
 
-            for (int i = 0; i < checkBoxItems.Length; i++)
+            for (int i = 0; i < checkBoxItems.ToArray().Length; i++)
             {
                 item.Add("dx = " + checkBoxItems[i]);
             }
         }
 
-        private static double ExtractDecimalFromString(string str)
-        {
 
-            Regex digits = new Regex(@"^\D*?((-?(\d+(\.\d+)?))|(-?\.\d+)).*");
-            Match mx = digits.Match(str);
-            //Console.WriteLine("Input {0} - Digits {1} {2}", str, mx.Success, mx.Groups);
-
-            return mx.Success ? Convert.ToDouble(mx.Groups[1].Value) : 0;
-        }
 
         //private int GetChoosenElement(CheckedListBox checkedListBox)
         //{
@@ -76,14 +83,9 @@ namespace Lab1
             double x = ConvertValueToDouble(str);
             double b = ConvertValueToDouble(bstr);
 
-            //string dxstr = new String(checkedListBox1.SelectedItem.ToString().Where(t => Char.IsDigit(t)).ToArray());
-             
-
-            double dx = ExtractDecimalFromString(checkedListBox1.SelectedItem.ToString());
+            double dx = ExtractDoubleFromString(checkedListBox1.SelectedItem.ToString());
 
             double y = 0;
-
-            MessageBox.Show("Good!");
 
             for (int i = 0; i < 10; i++)
             {
@@ -109,5 +111,10 @@ namespace Lab1
 
         #endregion
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AdderForm adderForm = new AdderForm();
+            adderForm.Show();
+        }
     }
 }
