@@ -55,6 +55,10 @@ namespace Lab1
             this.aValueProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.incrementListProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label5 = new System.Windows.Forms.Label();
+            this.dxValue = new System.Windows.Forms.TextBox();
+            this.AddToList_button = new System.Windows.Forms.Button();
+            this.dxErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.graphic)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xFirstValueProvider)).BeginInit();
@@ -62,6 +66,7 @@ namespace Lab1
             ((System.ComponentModel.ISupportInitialize)(this.bValueProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aValueProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.incrementListProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // formula1
@@ -74,7 +79,6 @@ namespace Lab1
             this.formula1.TabStop = true;
             this.formula1.Text = "y = x*x + tg(5x+b/x)";
             this.formula1.UseVisualStyleBackColor = true;
-            this.formula1.EnabledChanged += new System.EventHandler(this.formula1_EnabledChanged);
             this.formula1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.formula1_MouseClick);
             // 
             // formula2
@@ -146,10 +150,9 @@ namespace Lab1
             this.incrementList.FormattingEnabled = true;
             this.incrementList.Location = new System.Drawing.Point(297, 27);
             this.incrementList.Name = "incrementList";
-            this.incrementList.Size = new System.Drawing.Size(120, 199);
+            this.incrementList.Size = new System.Drawing.Size(120, 154);
             this.incrementList.TabIndex = 9;
             this.incrementList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.incrementList_ItemCheck);
-            this.incrementList.SelectedValueChanged += new System.EventHandler(this.incrementList_SelectedValueChanged);
             // 
             // button1
             // 
@@ -227,11 +230,45 @@ namespace Lab1
             // 
             this.incrementListProvider.ContainerControl = this;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(224, 201);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Add dx value";
+            // 
+            // dxValue
+            // 
+            this.dxValue.Location = new System.Drawing.Point(299, 198);
+            this.dxValue.Name = "dxValue";
+            this.dxValue.Size = new System.Drawing.Size(118, 20);
+            this.dxValue.TabIndex = 16;
+            this.dxValue.Validating += new System.ComponentModel.CancelEventHandler(this.dxValue_Validating);
+            // 
+            // AddToList_button
+            // 
+            this.AddToList_button.Location = new System.Drawing.Point(299, 224);
+            this.AddToList_button.Name = "AddToList_button";
+            this.AddToList_button.Size = new System.Drawing.Size(118, 23);
+            this.AddToList_button.TabIndex = 17;
+            this.AddToList_button.Text = "Add to list";
+            this.AddToList_button.UseVisualStyleBackColor = true;
+            this.AddToList_button.Click += new System.EventHandler(this.AddToList_button_Click);
+            // 
+            // dxErrorProvider
+            // 
+            this.dxErrorProvider.ContainerControl = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(937, 441);
+            this.Controls.Add(this.AddToList_button);
+            this.Controls.Add(this.dxValue);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.xLastValue);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
@@ -254,6 +291,7 @@ namespace Lab1
             ((System.ComponentModel.ISupportInitialize)(this.bValueProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aValueProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.incrementListProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,6 +318,10 @@ namespace Lab1
         private System.Windows.Forms.ErrorProvider aValueProvider;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.ErrorProvider incrementListProvider;
+        private System.Windows.Forms.Button AddToList_button;
+        private System.Windows.Forms.TextBox dxValue;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ErrorProvider dxErrorProvider;
     }
 }
 

@@ -16,11 +16,10 @@ namespace Lab1
     public partial class Form1 : Form
     {
         #region private variables
+
         private Classes.IMessage message = new Classes.Message();
         private IErrorMessage errorMessage = new ErrorMessage();
         private Classes.IGraphic graphicChart = new Graphic();
-        private List<double> itemsList = new List<double>();
-        private List<Color> colorList = new List<Color>();
 
         private bool isRunBefore = false;
 
@@ -29,24 +28,29 @@ namespace Lab1
         public Form1()
         {
             InitializeComponent();
+
+            //prepare to start
+
             FillIncrementList();
+
             button1.Enabled = false;
+            AddToList_button.Enabled = false;
+
+            groupBox1.Contains(formula1);
+            groupBox1.Contains(formula2);
+            incrementList.CheckOnClick = true;
         }
 
         #region private methods
 
         private void FillIncrementList()
         {
-            groupBox1.Contains(formula1);
-            groupBox1.Contains(formula2);
-            incrementList.CheckOnClick = true;
             double beginValue = 0.1;
             var incrementItems = incrementList.Items;
 
             for (int i = 0; i < 10; i++)
             {
-                itemsList.Add(beginValue);
-                incrementItems.Add("dx = " + itemsList[i]);
+                incrementItems.Add("dx = " + beginValue);
                 beginValue += i + 1;
 
             }
@@ -81,13 +85,57 @@ namespace Lab1
         #endregion
 
         #region Events
-        private void part1_Click(object sender, EventArgs e)
-        {
-        }
 
-        private void formula1_EnabledChanged(object sender, EventArgs e)
+        #region Magic button
+
+        private void button1_Click(object sender, EventArgs e)
         {
+            double x0 = double.Parse(xValue.Text);
+            double x1 = double.Parse(xLastValue.Text);
+            double b = double.Parse(bValue.Text);
+            double dx = ExtractDoubleFromString(incrementList.SelectedItem.ToString());
+            double a = ExtractDoubleFromString(aValue.Text);
+
+            if (isRunBefore)
+            {
+                foreach (var series in graphic.Series)
+                {
+                    series.Points.Clear();
+                }
+            }
+
+            if (String.IsNullOrWhiteSpace(incrementList.SelectedItem.ToString()) || String.IsNullOrWhiteSpace(xValue.Text) || String.IsNullOrWhiteSpace(xLastValue.Text) || String.IsNullOrWhiteSpace(bValue.Text))
+            {
+                message.ShowMessage("Some value is not valid");
+                return;
+            }
+
+
+            if (x0 == x1)
+            {
+                message.ShowMessage("first and last value is same");
+
+                return;
+            }
+
+            colorDialog1.AllowFullOpen = false;
+            colorDialog1.ShowHelp = true;
+
+
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                graphicChart.CalculateAndBuild(x0, x1, b, dx, graphic, "Series1", colorDialog1.Color, SeriesChartType.Point, a);
+                isRunBefore = true;
+            }
+
+            else
+            {
+                graphicChart.CalculateAndBuild(x0, x1, b, dx, graphic, "Series1", colorDialog1.Color, null, a);
+                isRunBefore = true;
+            }
+
         }
+        #endregion
 
         private void formula1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -123,42 +171,7 @@ namespace Lab1
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (isRunBefore)
-            {
-                foreach (var series in graphic.Series)
-                {
-                    series.Points.Clear();
-                }
-            }
 
-            if (String.IsNullOrWhiteSpace(incrementList.SelectedItem.ToString()) || String.IsNullOrWhiteSpace(xValue.Text) || String.IsNullOrWhiteSpace(xLastValue.Text) || String.IsNullOrWhiteSpace(bValue.Text))
-            {
-                message.ShowMessage("Some value is not valid");
-                return;
-            }
-            double x0 = double.Parse(xValue.Text);
-            double x1 = double.Parse(xLastValue.Text);
-            double b = double.Parse(bValue.Text);
-            double dx = ExtractDoubleFromString(incrementList.SelectedItem.ToString());
-            double a = ExtractDoubleFromString(aValue.Text);
-
-            colorDialog1.AllowFullOpen = false;
-            colorDialog1.ShowHelp = true;
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                graphicChart.CalculateAndBuild(x0, x1, b, dx, graphic, "Series1", colorDialog1.Color, SeriesChartType.Point, a);
-                isRunBefore = true;
-            }
-
-            else
-            {
-                graphicChart.CalculateAndBuild(x0, x1, b, dx, graphic, "Series1", colorDialog1.Color, null, a);
-                isRunBefore = true;
-            }
-
-        }
 
         private void xValue_Validating(object sender, CancelEventArgs e)
         {
@@ -254,15 +267,52 @@ namespace Lab1
             }
         }
 
-        private void incrementList_SelectedValueChanged(object sender, EventArgs e)
-        {
-        }
-
 
         private void aValue_EnabledChanged(object sender, EventArgs e)
         {
             errorMessage.ShowMessage(aValueProvider, aValue);
         }
+
+        private void dxValue_Validating(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                double dx = double.Parse(dxValue.Text);
+                errorMessage.ShowMessage(dxErrorProvider, dxValue);
+                AddToList_button.Enabled = true;
+            }
+            catch (FormatException)
+            {
+                errorMessage.ShowMessage(dxErrorProvider, dxValue, "Not a value");
+                AddToList_button.Enabled = false;
+            }
+
+            catch (OverflowException)
+            {
+                errorMessage.ShowMessage(dxErrorProvider, dxValue, "So big value");
+                AddToList_button.Enabled = false;
+            }
+        }
+
+        private void AddToList_button_Click(object sender, EventArgs e)
+        {
+            double dx = double.Parse(dxValue.Text);
+
+            int index = incrementList.FindString("dx = " + dx.ToString(), 0);
+
+            if (index != -1)
+            {
+                incrementList.SetSelected(index, true);
+                message.ShowMessage("Found the item \"" + dx.ToString() +
+            "\" at index: " + index);
+            }
+            else
+            {
+                incrementList.Items.Add("dx = " + dx);
+            }
+        }
+
         #endregion
+
     }
 }

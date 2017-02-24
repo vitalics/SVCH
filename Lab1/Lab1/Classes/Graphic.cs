@@ -25,6 +25,7 @@ namespace Lab1.Classes
                 color = Color.Red;
             }
             double y = 0;
+
             // swap
             if (x0 > x1)
             {
