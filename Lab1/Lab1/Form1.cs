@@ -90,9 +90,9 @@ namespace Lab1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double x0 = double.Parse(xValue.Text);
-            double x1 = double.Parse(xLastValue.Text);
-            double b = double.Parse(bValue.Text);
+            double x0 = ExtractDoubleFromString(xValue.Text);
+            double x1 = ExtractDoubleFromString(xLastValue.Text);
+            double b = ExtractDoubleFromString(bValue.Text);
             double dx = ExtractDoubleFromString(incrementList.SelectedItem.ToString());
             double a = ExtractDoubleFromString(aValue.Text);
 
@@ -170,8 +170,6 @@ namespace Lab1
                 button1.Enabled = true;
             }
         }
-
-
 
         private void xValue_Validating(object sender, CancelEventArgs e)
         {
@@ -303,8 +301,10 @@ namespace Lab1
             if (index != -1)
             {
                 incrementList.SetSelected(index, true);
-                message.ShowMessage("Found the item \"" + dx.ToString() +
-            "\" at index: " + index);
+                message.ShowMessage("The value " + dx.ToString() + " is has already added in list");
+
+                dxValue.Text = "";
+                return;
             }
             else
             {

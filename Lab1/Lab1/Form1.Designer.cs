@@ -32,9 +32,9 @@ namespace Lab1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.formula1 = new System.Windows.Forms.RadioButton();
             this.formula2 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -125,7 +125,7 @@ namespace Lab1
             this.xValue.Location = new System.Drawing.Point(87, 120);
             this.xValue.Name = "xValue";
             this.xValue.Size = new System.Drawing.Size(100, 20);
-            this.xValue.TabIndex = 6;
+            this.xValue.TabIndex = 3;
             this.xValue.Validating += new System.ComponentModel.CancelEventHandler(this.xValue_Validating);
             // 
             // bValue
@@ -133,7 +133,7 @@ namespace Lab1
             this.bValue.Location = new System.Drawing.Point(87, 172);
             this.bValue.Name = "bValue";
             this.bValue.Size = new System.Drawing.Size(100, 20);
-            this.bValue.TabIndex = 7;
+            this.bValue.TabIndex = 5;
             this.bValue.Validating += new System.ComponentModel.CancelEventHandler(this.bValue_Validating);
             // 
             // aValue
@@ -141,7 +141,7 @@ namespace Lab1
             this.aValue.Location = new System.Drawing.Point(87, 198);
             this.aValue.Name = "aValue";
             this.aValue.Size = new System.Drawing.Size(100, 20);
-            this.aValue.TabIndex = 8;
+            this.aValue.TabIndex = 6;
             this.aValue.EnabledChanged += new System.EventHandler(this.aValue_EnabledChanged);
             this.aValue.Validating += new System.ComponentModel.CancelEventHandler(this.aValue_Validating);
             // 
@@ -151,7 +151,7 @@ namespace Lab1
             this.incrementList.Location = new System.Drawing.Point(297, 27);
             this.incrementList.Name = "incrementList";
             this.incrementList.Size = new System.Drawing.Size(120, 154);
-            this.incrementList.TabIndex = 9;
+            this.incrementList.TabIndex = 8;
             this.incrementList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.incrementList_ItemCheck);
             // 
             // button1
@@ -159,23 +159,23 @@ namespace Lab1
             this.button1.Location = new System.Drawing.Point(47, 247);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 10;
+            this.button1.TabIndex = 7;
             this.button1.Text = "Calculate";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // graphic
             // 
-            chartArea2.Name = "ChartArea1";
-            this.graphic.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.graphic.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.graphic.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.graphic.Legends.Add(legend1);
             this.graphic.Location = new System.Drawing.Point(481, 27);
             this.graphic.Name = "graphic";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.graphic.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.graphic.Series.Add(series1);
             this.graphic.Size = new System.Drawing.Size(444, 402);
             this.graphic.TabIndex = 11;
             this.graphic.Text = "Graphic";
@@ -207,7 +207,7 @@ namespace Lab1
             this.xLastValue.Location = new System.Drawing.Point(87, 146);
             this.xLastValue.Name = "xLastValue";
             this.xLastValue.Size = new System.Drawing.Size(100, 20);
-            this.xLastValue.TabIndex = 14;
+            this.xLastValue.TabIndex = 4;
             this.xLastValue.Validating += new System.ComponentModel.CancelEventHandler(this.xLastValue_Validating);
             // 
             // xFirstValueProvider
@@ -244,7 +244,7 @@ namespace Lab1
             this.dxValue.Location = new System.Drawing.Point(299, 198);
             this.dxValue.Name = "dxValue";
             this.dxValue.Size = new System.Drawing.Size(118, 20);
-            this.dxValue.TabIndex = 16;
+            this.dxValue.TabIndex = 9;
             this.dxValue.Validating += new System.ComponentModel.CancelEventHandler(this.dxValue_Validating);
             // 
             // AddToList_button
@@ -252,7 +252,7 @@ namespace Lab1
             this.AddToList_button.Location = new System.Drawing.Point(299, 224);
             this.AddToList_button.Name = "AddToList_button";
             this.AddToList_button.Size = new System.Drawing.Size(118, 23);
-            this.AddToList_button.TabIndex = 17;
+            this.AddToList_button.TabIndex = 10;
             this.AddToList_button.Text = "Add to list";
             this.AddToList_button.UseVisualStyleBackColor = true;
             this.AddToList_button.Click += new System.EventHandler(this.AddToList_button_Click);
