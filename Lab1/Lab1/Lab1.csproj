@@ -47,40 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdderForm.Designer.cs">
-      <DependentUpon>AdderForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Classes\ErrorMessage.cs" />
+    <Compile Include="Classes\Graphic.cs" />
+    <Compile Include="Classes\IErrorMessage.cs" />
+    <Compile Include="Classes\IGraphic.cs" />
+    <Compile Include="Classes\IMessage.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Part1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Part1.Designer.cs">
-      <DependentUpon>Part1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Part2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Part2.Designer.cs">
-      <DependentUpon>Part2.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Classes\Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AdderForm.resx">
-      <DependentUpon>AdderForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Part1.resx">
-      <DependentUpon>Part1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Lab1.Classes;
 
-namespace Lab1
+namespace Lab1.Classes
 {
-    public partial class Part2 : Form
+    class Message : IMessage
     {
-        public Part2()
+        public void ShowMessage(string message)
         {
-            InitializeComponent();
+            MessageBox.Show(message);
         }
     }
 }
