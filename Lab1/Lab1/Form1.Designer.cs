@@ -123,6 +123,7 @@ namespace Lab1
             // xValue
             // 
             this.xValue.Location = new System.Drawing.Point(87, 120);
+            this.xValue.MaxLength = 10;
             this.xValue.Name = "xValue";
             this.xValue.Size = new System.Drawing.Size(100, 20);
             this.xValue.TabIndex = 3;
@@ -131,6 +132,7 @@ namespace Lab1
             // bValue
             // 
             this.bValue.Location = new System.Drawing.Point(87, 172);
+            this.bValue.MaxLength = 10;
             this.bValue.Name = "bValue";
             this.bValue.Size = new System.Drawing.Size(100, 20);
             this.bValue.TabIndex = 5;
@@ -139,6 +141,7 @@ namespace Lab1
             // aValue
             // 
             this.aValue.Location = new System.Drawing.Point(87, 198);
+            this.aValue.MaxLength = 10;
             this.aValue.Name = "aValue";
             this.aValue.Size = new System.Drawing.Size(100, 20);
             this.aValue.TabIndex = 6;
@@ -166,6 +169,9 @@ namespace Lab1
             // 
             // graphic
             // 
+            this.graphic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.graphic.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -176,7 +182,7 @@ namespace Lab1
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.graphic.Series.Add(series1);
-            this.graphic.Size = new System.Drawing.Size(444, 402);
+            this.graphic.Size = new System.Drawing.Size(441, 402);
             this.graphic.TabIndex = 11;
             this.graphic.Text = "Graphic";
             // 
@@ -205,6 +211,7 @@ namespace Lab1
             // xLastValue
             // 
             this.xLastValue.Location = new System.Drawing.Point(87, 146);
+            this.xLastValue.MaxLength = 10;
             this.xLastValue.Name = "xLastValue";
             this.xLastValue.Size = new System.Drawing.Size(100, 20);
             this.xLastValue.TabIndex = 4;
@@ -242,6 +249,7 @@ namespace Lab1
             // dxValue
             // 
             this.dxValue.Location = new System.Drawing.Point(299, 198);
+            this.dxValue.MaxLength = 10;
             this.dxValue.Name = "dxValue";
             this.dxValue.Size = new System.Drawing.Size(118, 20);
             this.dxValue.TabIndex = 9;
@@ -265,7 +273,7 @@ namespace Lab1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 441);
+            this.ClientSize = new System.Drawing.Size(934, 441);
             this.Controls.Add(this.AddToList_button);
             this.Controls.Add(this.dxValue);
             this.Controls.Add(this.label5);
@@ -281,6 +289,7 @@ namespace Lab1
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(950, 480);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.graphic)).EndInit();

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace Lab1.Classes
+namespace Lab1.Interfaces
 {
     interface IGraphic
     {

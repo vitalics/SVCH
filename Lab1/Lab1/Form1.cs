@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Lab1.Classes;
 using System.Text.RegularExpressions;
 using System.Windows.Forms.DataVisualization.Charting;
+
+using Lab1.Interfaces;
+using Lab1.Classes;
 
 namespace Lab1
 {
@@ -17,9 +19,11 @@ namespace Lab1
     {
         #region private variables
 
-        private Classes.IMessage message = new Classes.Message();
-        private IErrorMessage errorMessage = new ErrorMessage();
-        private Classes.IGraphic graphicChart = new Graphic();
+        private IMessage message = new Classes.Message();
+        private IErrorMessage errorMessage = new Classes.ErrorMessage();
+        private IGraphic graphicChart = new Classes.Graphic();
+
+        private ICheck check = new Check();
 
         private bool isRunBefore = false;
 
@@ -34,7 +38,7 @@ namespace Lab1
             FillIncrementList();
 
             button1.Enabled = false;
-            AddToList_button.Enabled = false;
+            //AddToList_button.Enabled = false;
 
             groupBox1.Contains(formula1);
             groupBox1.Contains(formula2);
@@ -59,7 +63,9 @@ namespace Lab1
         }
 
 
-        private static double ExtractDoubleFromString(string str)
+
+
+        public static double ExtractDoubleFromString(string str)
         {
 
             Regex digits = new Regex(@"^\D*?((-?(\d+(\.\d+)?))|(-?\.\d+)).*");
@@ -104,19 +110,35 @@ namespace Lab1
                 }
             }
 
-            if (String.IsNullOrWhiteSpace(incrementList.SelectedItem.ToString()) || String.IsNullOrWhiteSpace(xValue.Text) || String.IsNullOrWhiteSpace(xLastValue.Text) || String.IsNullOrWhiteSpace(bValue.Text))
+            if (check.IsNullOrEmptyString(incrementList.SelectedItem.ToString()) || check.IsNullOrEmptyString(xValue.Text) || check.IsNullOrEmptyString(xLastValue.Text) || check.IsNullOrEmptyString(bValue.Text))
             {
                 message.ShowMessage("Some value is not valid");
                 return;
             }
+            //if (String.IsNullOrWhiteSpace(incrementList.SelectedItem.ToString()) || String.IsNullOrWhiteSpace(xValue.Text) || String.IsNullOrWhiteSpace(xLastValue.Text) || String.IsNullOrWhiteSpace(bValue.Text))
+            //{
+            //    message.ShowMessage("Some value is not valid");
+            //    return;
+            //}
 
-
-            if (x0 == x1)
+            if (check.IsSameValues(x0, x1))
             {
                 message.ShowMessage("first and last value is same");
-
                 return;
             }
+
+            if (x0 > x1)
+            {
+                check.SwapTextInControls(xValue,xLastValue);
+            }
+
+
+            //if (x0 == x1)
+            //{
+            //    message.ShowMessage("first and last value is same");
+            //    check.SwapControls(xValue, xLastValue);
+            //    return;
+            //}
 
             colorDialog1.AllowFullOpen = false;
             colorDialog1.ShowHelp = true;
@@ -177,9 +199,18 @@ namespace Lab1
             {
                 double x0 = double.Parse(xValue.Text);
                 errorMessage.ShowMessage(xFirstValueProvider, xValue);
+
+                int maxLength = 100;
+                if (xValue.MaxLength > maxLength)
+                {
+                    errorMessage.ShowMessage(xFirstValueProvider, xValue, "so big text");
+                    button1.Enabled = false;
+                }
+
                 button1.Enabled = true;
 
             }
+
             catch (FormatException)
             {
                 errorMessage.ShowMessage(xFirstValueProvider, xValue, "Not a value.");
@@ -198,6 +229,14 @@ namespace Lab1
             {
                 double x1 = double.Parse(xLastValue.Text);
                 errorMessage.ShowMessage(xLastProvider, xLastValue);
+
+                int maxLength = 100;
+                if (xLastValue.MaxLength > maxLength)
+                {
+                    errorMessage.ShowMessage(xLastProvider, xLastValue, "so big text");
+                    button1.Enabled = false;
+                }
+
                 button1.Enabled = true;
             }
             catch (FormatException)
@@ -222,6 +261,13 @@ namespace Lab1
                 if (b >= double.MaxValue || b <= double.MinValue)
                 {
                     errorMessage.ShowMessage(bValueProvider, bValue, "So big value");
+                }
+
+                int maxLength = 100;
+                if (bValue.MaxLength > maxLength)
+                {
+                    errorMessage.ShowMessage(bValueProvider, bValue, "so big text");
+                    button1.Enabled = false;
                 }
 
                 errorMessage.ShowMessage(bValueProvider, bValue);
@@ -250,6 +296,13 @@ namespace Lab1
             {
                 double a = double.Parse(aValue.Text);
                 errorMessage.ShowMessage(aValueProvider, aValue);
+
+                int maxLength = 100;
+                if (aValue.MaxLength > maxLength)
+                {
+                    errorMessage.ShowMessage(aValueProvider, aValue, "so big text");
+                    button1.Enabled = false;
+                }
                 button1.Enabled = true;
 
             }
@@ -277,6 +330,13 @@ namespace Lab1
             {
                 double dx = double.Parse(dxValue.Text);
                 errorMessage.ShowMessage(dxErrorProvider, dxValue);
+
+                int maxLength = 100;
+                if (dxValue.MaxLength > maxLength)
+                {
+                    button1.Enabled = false;
+                }
+
                 AddToList_button.Enabled = true;
             }
             catch (FormatException)
@@ -294,7 +354,7 @@ namespace Lab1
 
         private void AddToList_button_Click(object sender, EventArgs e)
         {
-            double dx = double.Parse(dxValue.Text);
+            double dx = ExtractDoubleFromString(dxValue.Text);
 
             int index = incrementList.FindString("dx = " + dx.ToString(), 0);
 

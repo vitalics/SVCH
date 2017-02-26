@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Lab1.Classes
+namespace Lab1.Interfaces
 {
-    interface IErrorMessage : IMessage
+    interface IMessage
     {
-        void ShowMessage(ErrorProvider errorProvider, Control control, string errorString = null);
+        void ShowMessage(string message);
     }
 }

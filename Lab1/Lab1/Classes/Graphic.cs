@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
+using Lab1.Interfaces;
 
 namespace Lab1.Classes
 {
@@ -15,7 +16,6 @@ namespace Lab1.Classes
         public void CalculateAndBuild(double x0, double x1, double b, double dx, Chart chart, string seriesName, Color? color, SeriesChartType? chartType = SeriesChartType.Point, double? a = null)
         {
             int counter = 0;
-            //chart.Series.Clear();
             if (chartType == null)
             {
                 chartType = SeriesChartType.Point;
