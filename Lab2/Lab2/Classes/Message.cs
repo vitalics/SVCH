@@ -18,10 +18,12 @@ namespace Lab2.Classes
             DialogResult dialogRezult = MessageBox.Show($"{message}", $"{header}", MessageBoxButtons.YesNo);
             if (dialogRezult == DialogResult.OK)
             {
+                yesNo = true;
                 return yesNo;
             }
             else
             {
+                yesNo = false;
                 return yesNo;
             }
         }

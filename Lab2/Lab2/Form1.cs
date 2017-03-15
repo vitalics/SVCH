@@ -29,7 +29,7 @@ namespace Lab2
         public string fileName = Environment.CurrentDirectory + "\\applicationSettings.xml";
 
         bool isFirstChecked = true;
-        bool isDesirialize = false;
+        bool isDeserialize = false;
 
         private int currentStep = 1;
         private int maxSteps = 5;
@@ -96,12 +96,9 @@ namespace Lab2
         #region private methods
         private void ClearPointChart()
         {
-            if (isDesirialize)
+            foreach (var item in chart1.Series)
             {
-                foreach (var item in chart1.Series)
-                {
-                    item.Points.Clear();
-                }
+                item.Points.Clear();
             }
         }
 
@@ -110,7 +107,7 @@ namespace Lab2
             formParametrs.heigth = this.Height;
             formParametrs.width = this.Width;
 
-            if (isDesirialize)
+            if (isDeserialize)
             {
                 x1 = formParametrs.xFirstValue;
                 x2 = formParametrs.xLastValue;
@@ -256,6 +253,9 @@ namespace Lab2
 
                         UnDisposeControll(incrementList);
 
+                        previousStepButton.Enabled = true;
+                        nextStepButton.Enabled = true;
+
                         incrementAdder.MaxLength = textBoxMaxNumbers;
                         AdderButton.Click += AdderButton_Click;
                         AddControll(incrementAdder, "", 89, 228, 120, 20);
@@ -276,13 +276,14 @@ namespace Lab2
                         colorDialog1.AllowFullOpen = false;
                         colorDialog1.ShowHelp = true;
 
+                        a = ExtractDoubleFromString(aValue.Text);
+
                         try
                         {
-                            x1 = ExtractDoubleFromString(xFirstValue.Text);
-                            x2 = ExtractDoubleFromString(xLastValue.Text);
-                            b = ExtractDoubleFromString(bValue.Text);
-                            a = ExtractDoubleFromString(aValue.Text);
-                            dx = ExtractDoubleFromString(selectedItem.ToString());
+                            x1 = double.Parse(xFirstValue.Text);
+                            x2 = double.Parse(xLastValue.Text);
+                            b = double.Parse(bValue.Text);
+                            dx = ExtractDoubleFromString(incrementList.SelectedItem.ToString());
                         }
                         catch (FormatException fe)
                         {
@@ -290,10 +291,12 @@ namespace Lab2
 
                             Disposer(currentStep);
                             currentStep = 1;
-                            Master(currentStep);
                             UnDisposer(currentStep);
+                            Master(currentStep);
                         }
+
                         ClearPointChart();
+
                         if (colorDialog1.ShowDialog() == DialogResult.OK)
                         {
                             graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", colorDialog1.Color, SeriesChartType.Point, a);
@@ -303,8 +306,6 @@ namespace Lab2
                         {
                             graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", Color.Red, SeriesChartType.Point, a);
                         }
-
-                        chart1.Visible = true;
 
                         Serialize();
 
@@ -460,15 +461,16 @@ namespace Lab2
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool isSaveRezult = message.YesNo("Close without saving. Are you sure?", "Progress not be saved");
+            bool isSaveRezult = message.YesNo("Auto saving. Are you sure?", "Progress be saved");
 
-            if (!isSaveRezult)
+            if (isSaveRezult)
             {
                 Serialize();
+                this.Dispose();
             }
             else
             {
-                return;
+                e.Cancel = false;
             }
         }
 
@@ -702,7 +704,7 @@ namespace Lab2
             selectedItem = formParams.dx;
 
 
-            isDesirialize = true;
+            isDeserialize = true;
             currentStep = maxSteps;
             Master(currentStep);
         }
