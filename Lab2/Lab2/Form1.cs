@@ -18,7 +18,16 @@ namespace Lab2
 {
     public partial class Form1 : Form
     {
+        #region public varialbes
+
+        public string fileName = Environment.CurrentDirectory + "\\applicationSettings.xml";
+
+        public XmlSerializer xmlser;
+
+        #endregion
+
         #region private variables
+
         double x1 = 0;
         double x2 = 0;
         double b = 0;
@@ -26,7 +35,6 @@ namespace Lab2
         double dx = 0;
         double selectedItem = 0;
 
-        public string fileName = Environment.CurrentDirectory + "\\applicationSettings.xml";
 
         bool isFirstChecked = true;
         bool isDeserialize = false;
@@ -43,7 +51,6 @@ namespace Lab2
         FileStream fileStream;
         StreamReader reader;
         FormParametrs formParametrs = new FormParametrs();
-        public XmlSerializer xmlser;
 
         LinkLabel welcomeLinkLabel = new LinkLabel();
 
@@ -71,6 +78,7 @@ namespace Lab2
         Graphic graphicChart = new Graphic();
 
         #endregion
+
         public Form1()
         {
             InitializeComponent();
@@ -94,6 +102,7 @@ namespace Lab2
         #endregion
 
         #region private methods
+
         private void ClearPointChart()
         {
             foreach (var item in chart1.Series)
@@ -143,18 +152,26 @@ namespace Lab2
         private FormParametrs LoadParametrs()
         {
             XmlSerializer xmldeserializer = new XmlSerializer(typeof(FormParametrs));
-            using (reader = new StreamReader(fileName))
+            if (File.Exists(fileName))
             {
-                FormParametrs formParams = new FormParametrs();
-                try
+                using (reader = new StreamReader(fileName))
                 {
-                    formParams = (FormParametrs)xmldeserializer.Deserialize(reader);
+                    FormParametrs formParams = new FormParametrs();
+                    try
+                    {
+                        formParams = (FormParametrs)xmldeserializer.Deserialize(reader);
+                    }
+                    catch (Exception e)
+                    {
+                        message.ShowMessage(e.Message);
+                    }
+                    return formParams;
                 }
-                catch (Exception e)
-                {
-                    message.ShowMessage(e.Message);
-                }
-                return formParams;
+            }
+            else
+            {
+                message.ShowMessage("cannot find filename launch with default params");
+                return formParametrs.DefaultParametrs();
             }
         }
 
@@ -285,6 +302,7 @@ namespace Lab2
                             b = double.Parse(bValue.Text);
                             dx = ExtractDoubleFromString(incrementList.SelectedItem.ToString());
                         }
+
                         catch (FormatException fe)
                         {
                             message.ShowMessage(fe.Message);
@@ -294,6 +312,7 @@ namespace Lab2
                             UnDisposer(currentStep);
                             Master(currentStep);
                         }
+
 
                         ClearPointChart();
 
@@ -306,8 +325,6 @@ namespace Lab2
                         {
                             graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", Color.Red, SeriesChartType.Point, a);
                         }
-
-                        Serialize();
 
                         break;
                     }
@@ -643,7 +660,6 @@ namespace Lab2
 
         }
 
-
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Disposer(currentStep);
@@ -700,13 +716,36 @@ namespace Lab2
             xLastValue.Text = formParams.xLastValue.ToString();
             bValue.Text = formParams.b.ToString();
             aValue.Text = formParams.a.ToString();
-            selectedItem = ExtractDoubleFromString(incrementList.SelectedItem.ToString());
             selectedItem = formParams.dx;
 
+            if (formParams.width != 0 || formParams.heigth != 0)
+            {
+                Size = new Size(formParams.width, formParams.heigth);
+
+            }
+            else
+            {
+                Size = DefaultMinimumSize;
+            }
 
             isDeserialize = true;
-            currentStep = maxSteps;
-            Master(currentStep);
+
+            if ((string.IsNullOrWhiteSpace(xFirstValue.Text) || xFirstValue.Text == "0") || (string.IsNullOrWhiteSpace(xLastValue.Text) || xLastValue.Text == "0") || (string.IsNullOrWhiteSpace(bValue.Text) || bValue.Text == "0") || (string.IsNullOrWhiteSpace(selectedItem.ToString()) || selectedItem == 0))
+            {
+                message.ShowMessage("Some values are not corrected. Please reenter values");
+                Disposer(currentStep);
+                currentStep = 2;
+                Master(currentStep);
+            }
+            else
+            {
+                Disposer(currentStep);
+                currentStep = 5;
+                UnDisposer(currentStep);
+                Master(currentStep);
+
+            }
+
         }
 
         #endregion

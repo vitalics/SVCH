@@ -23,5 +23,18 @@ namespace Lab2.Classes
         public double a;
         public double dx;
 
+        public FormParametrs DefaultParametrs()
+        {
+            width = 650;
+            heigth = 450;
+            isFirstFormula = true;
+            xFirstValue = 1243;
+            xLastValue = 123;
+            b = 12;
+            a = 1;
+            dx = 3.1;
+
+            return this;
+        }
     }
 }
