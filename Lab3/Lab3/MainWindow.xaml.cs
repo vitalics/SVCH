@@ -40,23 +40,20 @@ namespace Lab3
         private Tool activeTool = Tool.Rotate;
         private double offsetX = 5d;
         private double offsetY = 5d;
-        private const byte DIFF_MOVE_STEP = 15;
         double angle = 0;
-
+        private const string GRID_UID = "gridUI";
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
             Bernuli.Margin = new Thickness(90, 100, 90, 100);
+
             RotateRadio.IsChecked = true;
             Graphic.MouseWheel += Bernuli_MouseWheel;
             Graphic.KeyDown += Bernuli_KeyDown;
 
-            coordX.X1 = 0;
-            coordX.Y1 = ActualHeight / 2;
-            coordX.X2 = ActualWidth;
-            coordX.Y2 = ActualHeight / 2;
+
         }
 
         private void rotateButton_Click(object sender, RoutedEventArgs e)
@@ -94,22 +91,24 @@ namespace Lab3
 
         private void Move(ArrowKey key)
         {
+            
             switch (key)
             {
                 case ArrowKey.Up:
-                    Bernuli.Margin = new Thickness(90, 100 + offsetY, 90, 100);
+                    betweenGraphicAndBernuli.RenderTransform = new TranslateTransform(offsetX, offsetY--);
                     break;
                 case ArrowKey.Down:
-                    Bernuli.Margin = new Thickness(90, 100 + offsetY, 90, 100);
+                    betweenGraphicAndBernuli.RenderTransform = new TranslateTransform(offsetX, offsetY++);
+
                     break;
                 case ArrowKey.Left:
-                    Bernuli.Margin = new Thickness(90, 100 + offsetY, 90, 100);
+                    betweenGraphicAndBernuli.RenderTransform = new TranslateTransform(offsetX--, offsetY);
                     break;
                 case ArrowKey.Right:
-                    Bernuli.Margin = new Thickness(90, 100 + offsetY, 90, 100);
+                    betweenGraphicAndBernuli.RenderTransform = new TranslateTransform(offsetX++, offsetY);
                     break;
                 case ArrowKey.Other:
-                    offsetX = offsetY = 0;
+                    //offsetX = offsetY = 0;
                     break;
                 default:
                     break;
@@ -177,6 +176,11 @@ namespace Lab3
 
                 Bernuli.Stroke = new SolidColorBrush(brash);
             }
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            Bernuli_KeyDown(sender, e);
         }
     }
 }
