@@ -318,12 +318,12 @@ namespace Lab2
 
                         if (colorDialog1.ShowDialog() == DialogResult.OK)
                         {
-                            graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", colorDialog1.Color, SeriesChartType.Point, a);
+                            graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", colorDialog1.Color, SeriesChartType.Line, a);
                         }
 
                         else
                         {
-                            graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", Color.Red, SeriesChartType.Point, a);
+                            graphicChart.CalculateAndBuild(x1, x2, b, dx, chart1, "Series1", Color.Red, SeriesChartType.Line, a);
                         }
 
                         break;
