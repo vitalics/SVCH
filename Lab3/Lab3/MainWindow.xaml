@@ -8,37 +8,36 @@
                   xmlns:xcpt="http://schemas.xceed.com/wpf/xaml/themes"
                   xmlns:xctt="http://schemas.xceed.com/wpf/xaml/toolkit/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="416.757" Width="743.392" KeyDown="Window_KeyDown">
+        Title="MainWindow" Height="500" Width="850" KeyDown="Window_KeyDown">
 
-    <Grid>
-        <DockPanel  x:Name="Graphic" Background="#FF9B9B9B" Margin="94,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center" Height="366" Width="631" RenderTransformOrigin="0.5,0.5">
-            <Canvas x:Name="betweenGraphicAndBernuli" RenderTransformOrigin="0.5,0.5">
-                <Canvas.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform X="1"/>
-                    </TransformGroup>
-                </Canvas.RenderTransform>
-                <Path Name="Bernuli" HorizontalAlignment="Center" Stroke="Black" StrokeThickness ="2"   VerticalAlignment="Center"  Data="M 787.49,150 C 787.49,203.36 755.56,247.27 712.27,269.5 S 622.17,290.34 582.67,279.16 508.78,246.56 480,223.91 424.93,174.93 400,150 348.85,98.79 320,76.09 256.91,32.03 217.33,20.84 130.62,8.48 87.73,30.5 12.51,96.64 12.51,150 44.44,247.27 87.73,269.5 177.83,290.34 217.33,279.16 291.22,246.56 320,223.91 375.07,174.93 400,150 451.15,98.79 480,76.09 543.09,32.03 582.67,20.84 669.38,8.48 712.27,30.5 787.49,96.64 787.49,150 z" RenderTransformOrigin="0.5,0.5"  Stretch="Fill" Width="450.205" Height="161.318" d:IsLocked="True">
-                    <Path.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="1" ScaleX="1"/>
-                            <SkewTransform AngleY="0" AngleX="0"/>
-                            <RotateTransform Angle="0"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Path.RenderTransform>
-                </Path>
-            </Canvas>
+	<Grid x:Name="Graphic">
 
+		<Line x:Name="xCoord" Stroke="Red" StrokeThickness="4" />
+		<Line x:Name="yCoord" Stroke="Red" StrokeThickness="4" />
+		<Canvas x:Name="betweenGraphicAndBernuli" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" Margin="212,111,180,189" >
+			<Canvas.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform ScaleY="-1" ScaleX="-1"/>
+					<SkewTransform/>
+					<RotateTransform/>
+					<TranslateTransform X="1"/>
+				</TransformGroup>
+			</Canvas.RenderTransform>
 
+			<Path Name="Bernuli" HorizontalAlignment="Center" Stroke="Black" StrokeThickness ="2"   VerticalAlignment="Center"  Data="M 787.49,150 C 787.49,203.36 755.56,247.27 712.27,269.5 S 622.17,290.34 582.67,279.16 508.78,246.56 480,223.91 424.93,174.93 400,150 348.85,98.79 320,76.09 256.91,32.03 217.33,20.84 130.62,8.48 87.73,30.5 12.51,96.64 12.51,150 44.44,247.27 87.73,269.5 177.83,290.34 217.33,279.16 291.22,246.56 320,223.91 375.07,174.93 400,150 451.15,98.79 480,76.09 543.09,32.03 582.67,20.84 669.38,8.48 712.27,30.5 787.49,96.64 787.49,150 z" RenderTransformOrigin="0.5,0.5"  Stretch="Fill" Width="450.205" Height="161.318" d:IsLocked="True">
+				<Path.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleY="1" ScaleX="1"/>
+						<SkewTransform AngleY="0" AngleX="0"/>
+						<RotateTransform Angle="0"/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Path.RenderTransform>
+			</Path>
+		</Canvas>
+		<RadioButton  Content="Rotate" x:Name="RotateRadio"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="rotateButton_Click"/>
+		<RadioButton Content="Scale" x:Name="ScaleRadio" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Click="scaleButton_Click" />
+		<Button Content="Graphic color" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="89" Click="setGraphicColor"/>
 
-        </DockPanel>
-        <RadioButton  Content="Rotate" x:Name="RotateRadio"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="rotateButton_Click"/>
-        <RadioButton Content="Scale" x:Name="ScaleRadio" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Click="scaleButton_Click" />
-        <Button Content="Graphic color" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="89" Click="setGraphicColor"/>
-
-    </Grid>
+	</Grid>
 </Window>
